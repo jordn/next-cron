@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin python
 
 # Date 2014-05-12
 # Author Jordan Burgess
@@ -60,7 +60,7 @@ def next_cron_events(args):
 
         event_day = "tomorrow" if day_offset else "today"
 
-        print("{0:%H}:{0:%M} {1} - {2}").format(next_event, event_day, program)
+        print("{0:%H}:{0:%M} {1} - {2}".format(next_event, event_day, program))
 
 
 if __name__ == "__main__":
