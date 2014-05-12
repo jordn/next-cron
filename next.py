@@ -8,7 +8,7 @@ import fileinput
 def main(args):
     print 'Input file is', args.input
 
-time_mins, time_hours = 46, 0 
+time_mins, time_hours = 46, 23 
 start_time = datetime.datetime.now().replace(hour=time_hours, minute=time_mins)
 print start_time
 print "Start time: {0:%H}:{0:%M} {1}".format(start_time, "today")
@@ -16,24 +16,28 @@ print "Start time: {0:%H}:{0:%M} {1}".format(start_time, "today")
 
 for line in fileinput.input():
     mins, hours, program = line.strip().split(' ')
+    day_offset = 0
+
     if hours == '*':
         if mins == '*' or int(mins) > start_time.minute:
-            hours = time_hours
+            hours = start_time.hour
         else:
-            hours = time_hours + 1 #consider wrap around at 23 + horus
+            hours = start_time.hour + 1 #consider wrap around at 23 + horus
+            if hours >= 24:
+                hours = hours%24
+                day_offset += 1
 
     else:
         hours = int(hours)
 
     if mins == '*':
-        mins = time_mins if hours == time_hours else 0
+        mins = start_time.minute if hours == start_time.hour else 0
     else: 
         mins = int(mins)
 
     event_time = start_time.replace(hour=hours, minute=mins)
+    event_time = event_time + datetime.timedelta(days = day_offset)
     
-    if event_time < start_time:
-        event_time = event_time + datetime.timedelta(days = 1)
 
     if event_time.date() == start_time.date():
         event_day = "today"
