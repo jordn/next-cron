@@ -5,7 +5,7 @@ Calculates the next times the specified cron jobs will fire.
 Reads the cron jobs from stdin in the following format 
     `30 1 /bin/run_me_daily`
 
-You can specify the start time to calculate from with a positional argument in format `HH:MM`
+You can specify the start time with a positional argument in format `HH:MM` (defaults to now)
 
 Usage
 ---
@@ -35,7 +35,3 @@ For example given the above examples as input and the command-line argument 16:1
     16:45 today - /bin/run_me_hourly
     16:10 today - /bin/run_me_every_minute
     19:00 today - /bin/run_me_sixty_times
-
-We will want to run your tool, so please supply instructions for running it. Additionally, it must work on at least one of OSX and Linux (so we can run it on our dev boxes), ideally both.
-
-Please submit all code as attachments, not in the body of the email, as formatting is often lost or mangled. If you want to attach multiple files please do so as an archive (e.g. zip, tar, git bundle, etc).
