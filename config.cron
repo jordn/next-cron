@@ -2,4 +2,6 @@
 45 * /bin/run_me_hourly
 * * /bin/run_me_every_minute
 * 19 /bin/run_me_sixty_times
-00 0 /bin/run_me_on_the_hour
+59 23 /bin/run_me_just_before_midnight
+59 * /bin/run_me_just_before_the_hour
+00 0 /bin/run_me_at_midnight

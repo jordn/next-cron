@@ -1,6 +1,6 @@
 #!/usr/bin python
 
-# Date 2014-05-12
+# Date 2014-05-13
 # Author Jordan Burgess
 
 """ Calculates the next times the specified cron jobs will fire.
@@ -58,10 +58,13 @@ def next_cron_events(args):
                                         hour=next_event_hour, 
                                         minute=next_event_minute)
 
-# errors?
-        event_day = "tomorrow" if day_offset else "today"
+        if next_event.date() == start_time.date():
+            event_day = "today"
+        else:
+            event_day = "tomorrow"
 
-        print("{0.hour}:{0:%M} {1} - {2}".format(next_event, event_day, program))
+        print("{0.hour}:{0:%M} {1} - {2}".format(next_event,
+                                                 event_day, program))
 
 
 if __name__ == "__main__":
