@@ -17,19 +17,21 @@
  """
 
 import argparse
-import sys
-import datetime
+from datetime import datetime
+from sys import stdin
+
 
 def next_cron_events(args):
     """ Returns the next time cron jobs will execute.
     """
-    start_time = datetime.datetime.now()
+    start_time = datetime.now()
 
     if args.time:
         start_hour, start_minute = args.time.split(':')
-        start_time = start_time.replace(hour=int(start_hour), minute=int(start_minute))
+        start_time = start_time.replace(hour=int(start_hour),
+                                        minute=int(start_minute))
 
-    for line in sys.stdin:
+    for line in stdin:
 
         day_offset = 0
         cron_minute, cron_hour, program = line.strip().split(' ')
@@ -42,7 +44,6 @@ def next_cron_events(args):
         else:
             next_event_minute = int(cron_minute)
 
-
         if cron_hour == '*':
             if next_event_minute >= start_time.minute:
                 next_event_hour = start_time.hour
@@ -53,18 +54,20 @@ def next_cron_events(args):
             if next_event_hour < start_time.hour:
                 day_offset += 1
         
-        next_event = start_time.replace(
-            day=start_time.day + day_offset,
-            hour=next_event_hour,
-            minute=next_event_minute)
+        next_event = start_time.replace(day=start_time.day + day_offset,
+                                        hour=next_event_hour, 
+                                        minute=next_event_minute)
 
+# errors?
         event_day = "tomorrow" if day_offset else "today"
 
-        print("{0:%H}:{0:%M} {1} - {2}".format(next_event, event_day, program))
+        print("{0.hour}:{0:%M} {1} - {2}".format(next_event, event_day, program))
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Calculate the next time a cron job will execute')
-    parser.add_argument('time', nargs='?', help="HH:MM - Time from which to calculate next cron")
+    parser = argparse.ArgumentParser(
+                description='Calculate the next time a cron job will execute')
+    parser.add_argument('time', nargs='?',
+                        help="HH:MM - Time from which to calculate next cron")
     args = parser.parse_args()
     next_cron_events(args)

@@ -31,7 +31,7 @@ This program, when fed this config to stdin and the current time in the format H
 
 For example given the above examples as input and the command-line argument 16:10 the output should be
 
-    1:30 tomorrow - /bin/run_me_daily
+    01:30 tomorrow - /bin/run_me_daily
     16:45 today - /bin/run_me_hourly
     16:10 today - /bin/run_me_every_minute
     19:00 today - /bin/run_me_sixty_times
