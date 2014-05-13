@@ -53,9 +53,9 @@ def next_cron_events(args):
             next_event_hour = int(cron_hour)
             if next_event_hour < start_time.hour:
                 day_offset += 1
-        
+
         next_event = start_time.replace(day=start_time.day + day_offset,
-                                        hour=next_event_hour, 
+                                        hour=next_event_hour,
                                         minute=next_event_minute)
 
         if next_event.date() == start_time.date():
@@ -69,7 +69,7 @@ def next_cron_events(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-                description='Calculate the next time a cron job will execute')
+        description='Calculate the next time a cron job will execute')
     parser.add_argument('time', nargs='?',
                         help="HH:MM - Time from which to calculate next cron")
     args = parser.parse_args()
